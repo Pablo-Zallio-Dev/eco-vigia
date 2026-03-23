@@ -1,3 +1,6 @@
+/**
+ * Estructura de tipos para las incidencias.
+ */
 export interface Incident {
       id: string,
       title: string,

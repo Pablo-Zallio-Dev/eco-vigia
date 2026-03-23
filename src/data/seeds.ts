@@ -1,5 +1,8 @@
 import type { Incident } from "../types/incidents";
 
+/**
+ * Datos ficticios de incidencias.
+ */
 export const seedIncidents: Incident[] = [
   {
     id: '1',
