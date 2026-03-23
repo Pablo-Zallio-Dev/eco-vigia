@@ -1,9 +1,11 @@
-import Map from "./components/Map/Map"
+import MapContent from "./components/Map/components/MapContent"
 
 const App = () => {
+
+      
   return (
       <>
-      <Map />
+      <MapContent />
       </>
 )
 }
