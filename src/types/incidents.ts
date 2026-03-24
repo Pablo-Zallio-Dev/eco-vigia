@@ -6,7 +6,7 @@ export interface Incident {
       title: string,
       description: string,
       category: 'Senderos' | 'Limpieza' | 'Señalización' | 'Peligro';
-      status: 'abierta' | 'en-proceso' | 'resuelta';
+      status: 'Abierta' | 'En proceso' | 'Resuelta';
       lat: number,
       lng: number,
       date: string,
