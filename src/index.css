@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
 
 
 @font-face {
@@ -10,8 +9,19 @@
 
 
 
+:root {
+     --bg-navbar: #26443e;
+      
+}
+
+
+
+
 @theme {
       --font-inter: "Inter", "sans-serif";
+
+      /* color */
+      --color-navbar: var(--bg-navbar);
 
       /* font-size */
       --text-xxs: 0.65rem
@@ -19,4 +29,12 @@
 
 body {
       font-family: var(--font-inter);
+}
+
+.hover__btn {
+      @apply p-2 shadow-md/30  rounded-full hover:bg-emerald-700  focus:bg-emerald-800  focus:shadow-md/80 transition-colors duration-200
+}
+
+.map__table {
+      @apply absolute top-0 right-0 z-500 flex flex-col items-center gap-2 p-1 m-2 rounded-md border border-amber-800 bg-white text-xxs
 }
