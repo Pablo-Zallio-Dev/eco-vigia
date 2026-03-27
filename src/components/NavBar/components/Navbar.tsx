@@ -9,6 +9,7 @@ const Navbar = () => {
 
                         <section className=" w-full flex justify-around  ">
                               <BtnMap />
+                              
                               {/* <BtnProfile /> */}
                               <section className="">
                               <img src={logo} alt="" className=" w-18 " />

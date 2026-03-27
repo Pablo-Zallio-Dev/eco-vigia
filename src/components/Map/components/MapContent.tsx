@@ -3,6 +3,7 @@ import { useIncidentStore } from "../../../store/useIncidentStore"
 import Markers from "./Markers"
 import BtnAdd from "./BtnAdd"
 import { useUserLocation } from "../../../hooks/useUserLocation";
+import BtnRecenter from "../../NavBar/components/BtnRecenter";
 
 // Componente controlador interno
 const MapInit = () => {
@@ -27,7 +28,7 @@ const MapContent = () => {
                               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         />
                         <MapInit />
-
+                        <BtnRecenter />
                         <BtnAdd /> {/* ESta aquidentro */}
                         {
                               incidents.map((incident) => (
