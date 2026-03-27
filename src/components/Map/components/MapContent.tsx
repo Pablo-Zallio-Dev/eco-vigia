@@ -21,7 +21,7 @@ const MapContent = () => {
 
       return (
             <>
-                  <MapContainer className=" w-full h-screen bg-amber-500  " center={[39.329677, -0.5237843]} zoom={8} scrollWheelZoom={true}>
+                  <MapContainer className=" w-full h-screen bg-amber-500  " center={[39.1847558, -0.6223629]} zoom={8} scrollWheelZoom={true}>
                         <TileLayer
                               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
