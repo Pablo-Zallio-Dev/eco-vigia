@@ -21,7 +21,7 @@ const BtnRecenter = () => {
       return (
            <button
       onClick={handleRecenter}
-      className="absolute bottom-24 right-4 z-1000 p-3 bg-white text-primary rounded-full shadow-lg active:scale-95 transition-transform"
+      className="absolute bottom-24 right-4 z-1800 p-3 bg-white text-primary rounded-full shadow-lg active:scale-95 transition-transform"
       title="Volver a mi ubicación"
     >
       <Locate size={20} fill="currentColor" />

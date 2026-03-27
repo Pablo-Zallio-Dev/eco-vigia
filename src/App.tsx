@@ -8,13 +8,10 @@ const App = () => {
       
   return (
       <>
-      <section className=" h-dvh ">
-
       <MapContent />
       <MapStatusTable />
       <IncidentForms />
       <Navbar />
-      </section>
 
 
       </>
