@@ -11,6 +11,10 @@
 
 :root {
      --bg-navbar: #26443e;
+     --bg-form: #18312c;
+     --bg-input: #367669;
+     --text-label: #fff7ef;
+
       
 }
 
@@ -22,10 +26,14 @@
 
       /* color */
       --color-navbar: var(--bg-navbar);
+      --color-form: var(--bg-form);
+      --color-input: var(--bg-input);
+      --color-label: var(--text-label);
 
       /* font-size */
       --text-xxs: 0.65rem
 }
+
 
 body {
       font-family: var(--font-inter);

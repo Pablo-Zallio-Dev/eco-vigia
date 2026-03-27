@@ -2,7 +2,7 @@ import { Marker, Popup } from "react-leaflet"
 import { statusIcons } from "../utilities/MapIcons"
 
 interface MarkerProps {
-      lat:number,
+      lat: number,
       lng: number,
       status: 'Abierta' | 'En proceso' | 'Resuelta',
       description: string,
@@ -11,6 +11,10 @@ interface MarkerProps {
 
 
 const Markers = ({ lat, lng, status, description, confirmations }: MarkerProps) => {
+
+    
+
+
       return (
             <>
 
