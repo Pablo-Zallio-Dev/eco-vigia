@@ -4,13 +4,14 @@ import { statusIcons } from "../utilities/MapIcons"
 interface MarkerProps {
       lat: number,
       lng: number,
+      title: string,
       status: 'Abierta' | 'En proceso' | 'Resuelta',
       description: string,
       confirmations: number
 }
 
 
-const Markers = ({ lat, lng, status, description, confirmations }: MarkerProps) => {
+const Markers = ({ lat, lng, status, title, description, confirmations }: MarkerProps) => {
 
     
 
@@ -22,6 +23,7 @@ const Markers = ({ lat, lng, status, description, confirmations }: MarkerProps) 
                         <Popup className=" ">
                               <section className="font-inter ">
                                     <p className=" font-extrabold "> {status} </p>
+                                    <p className=""> {title} </p>
                                     <p className=" w-48 text-xs "> {description} </p>
                                     <p className=" font-bold text-xxs ">Notificaciones: {confirmations}</p>
                               </section>

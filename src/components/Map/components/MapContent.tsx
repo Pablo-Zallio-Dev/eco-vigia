@@ -5,21 +5,19 @@ import BtnAdd from "./BtnAdd"
 import { useUserLocation } from "../../../hooks/useUserLocation";
 
 // Componente controlador interno
-  const MapInit = () => {
-    useUserLocation();
-    return null;
-  };
+const MapInit = () => {
+      useUserLocation();
+      return null;
+};
+
 
 
 const MapContent = () => {
+      
+ 
+
 
       const incidents = useIncidentStore((state) => (state.incidents))
-
-      
-
-
-
-
 
       return (
             <>
@@ -33,7 +31,7 @@ const MapContent = () => {
                         <BtnAdd /> {/* ESta aquidentro */}
                         {
                               incidents.map((incident) => (
-                                    <Markers key={incident.id} lat={incident.lat} lng={incident.lng} status={incident.status} description={incident.description} confirmations={incident.confirmations} />
+                                    <Markers key={incident.id} lat={incident.lat} lng={incident.lng} title={incident.title} status={incident.status} description={incident.description} confirmations={incident.confirmations} />
                               ))
                         }
                   </MapContainer>
