@@ -34,6 +34,9 @@
       --text-xxs: 0.65rem
 }
 
+html {
+      overflow: hidden;
+}
 
 body {
       font-family: var(--font-inter);
