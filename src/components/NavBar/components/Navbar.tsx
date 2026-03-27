@@ -9,13 +9,13 @@ const Navbar = () => {
 
                         <section className=" w-full flex justify-around  ">
                               <BtnMap />
-                              
+
                               {/* <BtnProfile /> */}
                               <section className="">
-                              <img src={logo} alt="" className=" w-18 " />
+                                    <img src={logo} alt="" className=" w-18 " />
+                              </section>
                         </section>
-                        </section>
-                        
+
                   </section>
             </>
       )
