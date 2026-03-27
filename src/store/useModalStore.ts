@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import type { Incident } from "../types/incidents";
 
 interface Coordinate {
       lat: number;
@@ -11,6 +12,8 @@ interface ModalStore {
       triggerSource: string | null;
       coords: Coordinate | null
       closeForm: () => void
+      suggestedIncident: Incident | null
+      setSuggestedIncident: (incident: Incident | null) => void
 }
 
 
@@ -24,6 +27,10 @@ export const useModalStore = create<ModalStore>((set) => ({
             triggerSource: source    
       })),
       closeForm: () => set(() => ({
-            isFormOpen: false
-      }))
+            isFormOpen: false,
+            suggestedIncident: null,
+
+      })),
+      suggestedIncident: null,
+      setSuggestedIncident: (incident) => set({ suggestedIncident: incident }),
 }))
