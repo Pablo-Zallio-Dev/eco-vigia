@@ -8,7 +8,6 @@ import UserMarkers from "./UserMarkers";
 
 // Componente controlador interno
 const MapInit = () => {
-      
   useUserLocation();
   return null;
 };

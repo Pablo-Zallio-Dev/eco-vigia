@@ -1,6 +1,4 @@
-
 import { category } from "../schemas/schemaValidation";
-
 
 export type Inputs = {
       title: string,

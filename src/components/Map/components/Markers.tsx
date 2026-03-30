@@ -15,14 +15,10 @@ interface MarkerProps {
 
 
 const Markers = ({ id, lat, lng, status, title, description, confirmations }: MarkerProps) => {
-
       const deleteIncident = useIncidentStore((state) => state.deleteIncident)
 
-
-
-
       return (
-            <>
+         
 
                   <Marker position={[lat, lng]} icon={statusIcons[status] || statusIcons.alert} >
                         <Popup className=" ">
@@ -41,7 +37,7 @@ const Markers = ({ id, lat, lng, status, title, description, confirmations }: Ma
                         </Popup>
                   </Marker>
 
-            </>
+            
       )
 }
 

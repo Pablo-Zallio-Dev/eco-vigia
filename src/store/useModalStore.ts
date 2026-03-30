@@ -16,7 +16,6 @@ interface ModalStore {
       setSuggestedIncident: (incident: Incident | null) => void
 }
 
-
 export const useModalStore = create<ModalStore>((set) => ({
       isFormOpen: false,
       coords: null,

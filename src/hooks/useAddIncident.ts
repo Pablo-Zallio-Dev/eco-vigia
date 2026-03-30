@@ -9,25 +9,20 @@ export const useAddIncident = () => {
       const listIncident = useIncidentStore((state) => state.incidents)
       const setSuggestedIncident = useModalStore((state) => state.setSuggestedIncident)
 
-
-
       const handleAddClick = () => {
-
-
             const center = map.getCenter()
             const coords = { lat: center.lat, lng: center.lng };
             const userLocation = useIncidentStore.getState().userLocation; // Tu posición GPS
             const duplicate = checkProximity(coords, listIncident);
 
             if (userLocation) {
-    const isInRange = isWithinRange(userLocation, coords);
+                  const isInRange = isWithinRange(userLocation, coords);
 
-    if (!isInRange) {
-      alert("⚠️ Estás intentando reportar demasiado lejos de tu ubicación actual.");
-      return; // Detenemos la ejecución aquí
-    }
-  }
-
+                  if (!isInRange) {
+                        alert("⚠️ Estás intentando reportar demasiado lejos de tu ubicación actual.");
+                        return; // Detenemos la ejecución aquí
+                  }
+            }
             if (duplicate) {
                   console.log("Ya hay reporte aqui")
                   setSuggestedIncident(duplicate);
@@ -37,8 +32,6 @@ export const useAddIncident = () => {
                   setSuggestedIncident(null);
                   getFormAndCoords(coords, 'button_click')
             }
-
-
       };
 
       return { handleAddClick }
