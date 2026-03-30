@@ -11,6 +11,8 @@
 
 :root {
      --bg-navbar: #26443e;
+     --bg-formLogin: #0a2721;
+     --bg-login: #0e3d33;
      --bg-form: #18312c;
      --bg-input: #367669;
      --text-light: #fff7ef;
@@ -27,6 +29,8 @@
 
       /* color */
       --color-navbar: var(--bg-navbar);
+      --color-formLogin: var(--bg-formLogin);
+      --color-login: var(--bg-login);
       --color-form: var(--bg-form);
       --color-input: var(--bg-input);
       --color-light: var(--text-light);
