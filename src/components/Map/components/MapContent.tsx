@@ -37,6 +37,7 @@ const MapContent = () => {
         {incidents.map((incident) => (
           <Markers
             key={incident.id}
+            id={incident.id}
             lat={incident.lat}
             lng={incident.lng}
             title={incident.title}

@@ -9,6 +9,7 @@ interface incidentState {
       userLocation: [number, number] | null;
       setUserLocation: (coords: [number, number]) => void;
       updateStatus: (id: string, newStatus: Incident["status"]) => void; //ADMIN
+      deleteIncident:(id: string) => void
 }
 
 export const useIncidentStore = create<incidentState>()(
@@ -36,6 +37,9 @@ export const useIncidentStore = create<incidentState>()(
                   })),
 
                   userLocation: null,
+                  deleteIncident: (id) => set((state) => ({
+                        incidents: state.incidents.filter( i => i.id !== id)
+                  }))
             }),
             { name: "eco-vigia-storage" },
       ),
