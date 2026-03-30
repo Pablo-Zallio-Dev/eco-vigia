@@ -4,15 +4,19 @@ import Markers from "./Markers";
 import BtnAdd from "./BtnAdd";
 import { useUserLocation } from "../../../hooks/useUserLocation";
 import BtnRecenter from "../../NavBar/components/BtnRecenter";
+import UserMarkers from "./UserMarkers";
 
 // Componente controlador interno
 const MapInit = () => {
+      
   useUserLocation();
   return null;
 };
 
 const MapContent = () => {
   const incidents = useIncidentStore((state) => state.incidents);
+  const userLocation = useIncidentStore((state) => state.userLocation)
+  console.log("ubi local" + userLocation?.[0])
 
   return (
     <>
@@ -27,6 +31,7 @@ const MapContent = () => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MapInit />
+        <UserMarkers />
         <BtnRecenter />
         <BtnAdd /> {/* ESta aquidentro */}
         {incidents.map((incident) => (
