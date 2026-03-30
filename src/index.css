@@ -13,6 +13,7 @@
      --bg-navbar: #26443e;
      --bg-form: #18312c;
      --bg-input: #367669;
+     --text-light: #fff7ef;
      --text-label: #fff7ef;
 
       
@@ -28,6 +29,7 @@
       --color-navbar: var(--bg-navbar);
       --color-form: var(--bg-form);
       --color-input: var(--bg-input);
+      --color-light: var(--text-light);
       --color-label: var(--text-label);
 
       /* font-size */
@@ -43,7 +45,7 @@ body {
 }
 
 .hover__btn {
-      @apply p-2 shadow-md/30  rounded-full hover:bg-emerald-700  focus:bg-emerald-800  focus:shadow-md/80 transition-colors duration-200
+      @apply p-2 shadow-md/30  rounded-full hover:bg-emerald-700  /* focus:bg-emerald-800  focus:shadow-md/80 */ transition-colors duration-200
 }
 
 .map__table {
