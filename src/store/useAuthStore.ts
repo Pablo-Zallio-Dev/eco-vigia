@@ -12,6 +12,7 @@ interface AuthStore {
       userId: string,
       isAuthenticated: boolean
       saveUser: (data: User) => void
+      logout: () => void
 }
 
 
