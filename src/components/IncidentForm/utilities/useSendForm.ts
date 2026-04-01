@@ -1,3 +1,4 @@
+import { supabase } from "../../../lib/supabase";
 import { useIncidentStore } from "../../../store/useIncidentStore";
 import { useModalStore } from "../../../store/useModalStore";
 import type { Incident } from "../../../types/incidents";
@@ -7,10 +8,20 @@ export const useSendForm = () => {
       const { coords, closeForm } = useModalStore();
       const addIncident = useIncidentStore((state) => state.addIncident);
 
-      const onSubmit = (data: Inputs) => {
+      const onSubmit = async(data: Inputs) => {
             if (!coords) return;
+
+            const { data: { user } } = await supabase.auth.getUser();
+
+            if (!user) {
+                  console.error("No hay un usuario autenticado");
+                  return;
+            }
+
+            
             const newIncident: Incident = {
                   id: crypto.randomUUID(), // Genera ID único
+                  user_id: user.id,
                   title: data.title,
                   description: data.description,
                   category: data.category,
