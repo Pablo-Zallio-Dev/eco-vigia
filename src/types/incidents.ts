@@ -3,6 +3,7 @@
  */
 export interface Incident {
       id: string,
+      user_id: string,
       title: string,
       description: string,
       category: 'Senderos' | 'Limpieza' | 'Señalización' | 'Peligro';

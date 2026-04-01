@@ -1,30 +1,34 @@
-import { create } from "zustand";
-import type { ProfileFormData } from "../schemas/profileValidation";
-import { persist } from "zustand/middleware";
+      import { create } from "zustand";
+      import type { ProfileFormData } from "../schemas/profileValidation";
+      import { supabase } from "../lib/supabase";
 
-interface UserListStore {
-      registeredUsers: ProfileFormData[],
-      addUsers: (data: ProfileFormData) => boolean
+      interface UserListStore {
+            addUsers: (data: ProfileFormData) => Promise<boolean>
 
-}
-
-export const useUserListStore = create<UserListStore>()(
-      persist((set) => ({
-            registeredUsers: [],
-            addUsers: (data) => { 
-                  let result = false;
-
-                  set((state) => {
-                  if(state.registeredUsers.some(user => user.user === data.user)){
-                        alert('Este usuario ya existe')
-                        result = false
-                        return state   
-                  } else {
-                        result= true
-                        return {registeredUsers: [...state.registeredUsers, data]}
-                  }
-            })
-            return result
       }
-      }), { name: 'addUsers-storage' })
-)
+
+      export const useUserListStore = create<UserListStore>(() => ({
+             addUsers: async (data) => {
+
+                        const { error } = await supabase.auth.signUp({
+                              email: `${data.user}@gmail.com`,
+                              password: data.userId,
+                        });
+
+                        if (error) {
+                              alert("Error en el registro: " + error.message);
+                              return false;
+                        }
+
+                        alert("¡Usuario registrado con éxito en la nube!");
+                        return true;
+                  }
+      })
+
+           
+
+      )
+
+
+
+  

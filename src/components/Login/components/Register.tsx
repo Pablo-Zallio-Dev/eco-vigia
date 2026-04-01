@@ -16,8 +16,8 @@ const Register = () => {
       const navigate = useNavigate(); // Importante para el salto de página
       const addUsers = useUserListStore((state) => state.addUsers)
 
-      const handleRegistration = (data: ProfileFormData) => {
-            const isSuccess = addUsers(data);
+      const handleRegistration = async (data: ProfileFormData) => {
+            const isSuccess = await addUsers(data);
 
             if (isSuccess) {
                   // Si el boolean fue true, mandamos al usuario al Login
@@ -35,7 +35,7 @@ const Register = () => {
                               <p className="">Bienvenido a...</p>
                               <h1 className=" text-3xl font-black ">EcoVigia</h1>
                         </div>
-                        <p className=" w-72 text-center text-xs ">Inicia sesión para informar y hacer un seguimiento de los incidentes medioambientales en tus rutas.</p>
+                        <p className=" w-72 text-center text-xs ">Inicia sesión para informar y hacer un seguimiento de los Incidentes medioambientales en tus rutas.</p>
                   </section>
                   <section className=" p-2.5 text-xs rounded-xl bg-login ">
                         <form onSubmit={handleSubmit(handleRegistration)} className=' flex flex-col items-center gap-6 '>

@@ -5,6 +5,8 @@ import BtnAdd from "./BtnAdd";
 import { useUserLocation } from "../../../hooks/useUserLocation";
 import BtnRecenter from "../../NavBar/components/BtnRecenter";
 import UserMarkers from "./UserMarkers";
+import { useEffect } from "react";
+import { supabase } from "../../../lib/supabase";
 
 // Componente controlador interno
 const MapInit = () => {
@@ -15,6 +17,21 @@ const MapInit = () => {
 const MapContent = () => {
   const incidents = useIncidentStore((state) => state.incidents);
   const userLocation = useIncidentStore((state) => state.userLocation)
+
+  // Dentro de tu componente de Mapa
+useEffect(() => {
+  const cargarDeSupabase = async () => {
+    const { data } = await supabase.from('Incidentes').select('*');
+    if (data) {
+       // Usamos el setIncidents de tu store para meter los puntos de la nube
+       useIncidentStore.getState().setIncidents(data); 
+    }
+  };
+  cargarDeSupabase();
+}, []);
+
+
+
   console.log("ubi local" + userLocation?.[0])
 
   return (
@@ -37,6 +54,7 @@ const MapContent = () => {
           <Markers
             key={incident.id}
             id={incident.id}
+            user_id={incident.user_id}
             lat={incident.lat}
             lng={incident.lng}
             title={incident.title}

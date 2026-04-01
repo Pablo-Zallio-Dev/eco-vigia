@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { supabase } from "../lib/supabase";
 
 export type User = {
       user: string,
@@ -8,7 +9,7 @@ export type User = {
 
 
 interface AuthStore {
-      user: string,
+      user: string | null,
       userId: string,
       isAuthenticated: boolean
       saveUser: (data: User) => void
@@ -29,7 +30,11 @@ export const useAuthStore = create<AuthStore>()(
 
                   })),
                   // En tu Store, añade esta acción:
-logout: () => set({ user: "", userId: "", isAuthenticated: false })
+                  // En useAuthStore.ts
+                  logout: async () => {
+                        await supabase.auth.signOut();
+                        set({ isAuthenticated: false, user: null }); // Limpiamos el estado local
+                  }
             }),
             { name: 'user-storage' },
 
