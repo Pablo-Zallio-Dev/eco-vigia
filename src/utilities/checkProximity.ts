@@ -16,7 +16,7 @@ export const checkProximity = (
 };
 
 
-const REPORTING_RANGE = 0.002; // ~200 metros
+const REPORTING_RANGE = 0.0002; // ~20 metros
 
 export const isWithinRange = (
   userCoords: [number, number], // Ubicación GPS real

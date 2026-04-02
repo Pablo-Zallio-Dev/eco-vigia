@@ -7,6 +7,7 @@ import BtnRecenter from "../../NavBar/components/BtnRecenter";
 import UserMarkers from "./UserMarkers";
 import { useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
+import DeleteconfirmModal from "../../IncidentForm/components/DeleteconfirmModal";
 
 // Componente controlador interno
 const MapInit = () => {
@@ -64,6 +65,7 @@ useEffect(() => {
           />
         ))}
       </MapContainer>
+      <DeleteconfirmModal />
     </>
   );
 };

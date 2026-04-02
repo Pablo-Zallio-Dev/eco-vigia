@@ -8,7 +8,7 @@ export const useSendForm = () => {
       const { coords, closeForm } = useModalStore();
       const addIncident = useIncidentStore((state) => state.addIncident);
 
-      const onSubmit = async(data: Inputs) => {
+      const onSubmit = async( data: Inputs, reset?: () => void) => {
             if (!coords) return;
 
             const { data: { user } } = await supabase.auth.getUser();
@@ -35,6 +35,9 @@ export const useSendForm = () => {
 
             addIncident(newIncident);
             closeForm();
+           if (reset) reset();
+            
+            
       }
 
       return { onSubmit }

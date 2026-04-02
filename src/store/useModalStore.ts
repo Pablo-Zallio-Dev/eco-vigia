@@ -13,7 +13,11 @@ interface ModalStore {
       coords: Coordinate | null
       closeForm: () => void
       suggestedIncident: Incident | null
-      setSuggestedIncident: (incident: Incident | null) => void
+      setSuggestedIncident: (incident: Incident | null) => void,
+      isDeleteModalOpen: boolean;
+      incidentToDelete: string | null;
+      openDeleteModal: (id: string) => void;
+      closeDeleteModal: () => void;
 }
 
 export const useModalStore = create<ModalStore>((set) => ({
@@ -23,7 +27,7 @@ export const useModalStore = create<ModalStore>((set) => ({
       getFormAndCoords: (coords, source) => set(() => ({
             isFormOpen: true,
             coords: coords,
-            triggerSource: source    
+            triggerSource: source
       })),
       closeForm: () => set(() => ({
             isFormOpen: false,
@@ -32,4 +36,8 @@ export const useModalStore = create<ModalStore>((set) => ({
       })),
       suggestedIncident: null,
       setSuggestedIncident: (incident) => set({ suggestedIncident: incident }),
+      isDeleteModalOpen: false,
+      incidentToDelete: null,
+      openDeleteModal: (id) => set({ isDeleteModalOpen: true, incidentToDelete: id }),
+      closeDeleteModal: () => set({ isDeleteModalOpen: false, incidentToDelete: null }),
 }))
