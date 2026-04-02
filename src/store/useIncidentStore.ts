@@ -30,14 +30,14 @@ export const useIncidentStore = create<incidentState>((set) => ({
                               // No hace falta poner user_id, ¡Supabase lo pone solo con auth.uid()!
                         }
                   ])
-                        .select();
+                  .select();
             if (error) console.error("Error al guardar:", error.message);
 
             if (data && data.length > 0) {
-    set((state) => ({
-      incidents: [...state.incidents, data[0] as Incident]
-    }));
-  }
+                  set((state) => ({
+                        incidents: [...state.incidents, data[0] as Incident]
+                  }));
+            }
       },
 
 
@@ -57,7 +57,28 @@ export const useIncidentStore = create<incidentState>((set) => ({
 
       userLocation: null,
       deleteIncident: async (id) => {
-            await supabase.from('Incidentes').delete().eq('id', id);
+            console.log("Intentando borrar el ID:", id);
+
+            const { error, count } = await supabase
+                  .from('Incidentes')
+                  .delete({ count: 'exact' }) // Nos dirá cuántas filas se borraron
+                  .eq('id', id);
+
+            if (error) {
+                  console.error("❌ Error de Supabase al borrar:", error.message);
+                  return;
+            }
+
+            if (count === 0) {
+                  console.warn("⚠️ No se borró nada. Probablemente no eres el dueño o el ID no existe.");
+                  return;
+            }
+
+            // Si llegamos aquí, Supabase confirmó el borrado, ahora actualizamos el mapa
+            console.log("✅ Borrado con éxito de la DB. Actualizando estado local...");
+            set((state) => ({
+                  incidents: state.incidents.filter((inc) => inc.id !== id)
+            }));
       },
 })
 

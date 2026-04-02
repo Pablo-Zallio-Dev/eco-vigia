@@ -1,8 +1,7 @@
 import { Marker, Popup } from "react-leaflet"
 import { statusIcons } from "../utilities/MapIcons"
-import { Trash } from "lucide-react"
-import { useIncidentStore } from "../../../store/useIncidentStore"
 import { useAuth } from "../../../hooks/useAuth"
+import { useModalStore } from "../../../store/useModalStore"
 
 interface MarkerProps {
       id: string,
@@ -16,13 +15,12 @@ interface MarkerProps {
 }
 
 
-const Markers = ({ id, user_id , lat, lng, status, title, description, confirmations }: MarkerProps) => {
+const Markers = ({ id, user_id, lat, lng, status, title, description, confirmations }: MarkerProps) => {
+      console.log(confirmations)
 
       const { user } = useAuth();
-      const deleteIncident = useIncidentStore((state) => state.deleteIncident)
-
-      console.log("ID Usuario logueado:", user?.id);
-      console.log("ID Dueño del punto:", user_id);
+const openDeleteModal = useModalStore((state) => state.openDeleteModal);
+     
 
       return (
 
@@ -33,16 +31,16 @@ const Markers = ({ id, user_id , lat, lng, status, title, description, confirmat
                               <p className=" font-extrabold "> {status} </p>
                               <p className=""> {title} </p>
                               <p className=" w-48 text-xs "> {description} </p>
-                              <section className=" flex items-center justify-around ">
-                                    <p className=" font-bold text-xxs ">Notificaciones: {confirmations}</p>
-                                    {user && user.id === user.id && (
-                                          <button className=" flex flex-col items-center " onClick={() => deleteIncident(id)} >
-                                                <Trash size={20} color="#ff0000" />
-                                                <p className=" text-xxs my-1!  ">Borrar</p>
+                                    {
+                                          confirmations && <p className=" font-bold text-xxs ">Notificaciones: {confirmations}</p>
+                                    }
+                                    
+                                    {user && user.id === user_id && (
+                                          <button className=" flex flex-col items-center cursor-pointer " onClick={() => openDeleteModal(id)} >
+                                                <p className=" text-xxs text-red-600  ">Borrar Incidencia</p>
 
                                           </button>
                                     )}
-                              </section>
                         </section>
                   </Popup>
             </Marker>

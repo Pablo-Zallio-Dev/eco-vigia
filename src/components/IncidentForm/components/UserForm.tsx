@@ -1,19 +1,18 @@
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { schemaValidation } from '../../../schemas/schemaValidation'
 import type { Inputs } from '../../../types/inputs'
 import { useSendForm } from '../utilities/useSendForm'
+import type { UseFormReturn } from 'react-hook-form'
 
 
-const UserForm = () => {
-      const { register, handleSubmit, formState: { errors } } = useForm<Inputs>({
-            resolver: zodResolver(schemaValidation)
-      })
+
+const UserForm = ({ methods }: { methods: UseFormReturn<Inputs> }) => {
+      const { register, handleSubmit, reset, formState: { errors } } = methods
 
       const { onSubmit } = useSendForm()
 
+      
+
       return (
-            <form onSubmit={handleSubmit(onSubmit)} className=" flex flex-col gap-4 ">
+            <form onSubmit={handleSubmit((data) => onSubmit(data, reset))} className=" flex flex-col gap-4 ">
                   <div className=" flex flex-col gap-1 ">
                         <label htmlFor="title" className=" text-sm md:text-lg ">Titulo</label>
                         <input type="text" id="title" className=" p-2 bg-input text-xs rounded-lg focus:outline-0 "

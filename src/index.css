@@ -15,6 +15,7 @@
      --bg-login: #0e3d33;
      --bg-form: #18312c;
      --bg-input: #367669;
+     --text-dark: #18312c;
      --text-light: #fff7ef;
      --text-label: #fff7ef;
 
@@ -34,6 +35,7 @@
       --color-form: var(--bg-form);
       --color-input: var(--bg-input);
       --color-light: var(--text-light);
+      --color-dark: var(--text-dark);
       --color-label: var(--text-label);
 
       /* font-size */
