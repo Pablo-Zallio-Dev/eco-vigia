@@ -20,7 +20,6 @@
                               return false;
                         }
 
-                        alert("¡Usuario registrado con éxito en la nube!");
                         return true;
                   }
       })

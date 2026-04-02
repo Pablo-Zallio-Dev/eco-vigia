@@ -2,17 +2,23 @@ import { KeyRound, UserRound } from 'lucide-react'
 import logo from '../../../assets/images/logo.webp'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAuthStore } from '../../../store/useAuthStore'
 import { profileValidation, type ProfileFormData } from '../../../schemas/profileValidation'
-import { Link, useNavigate } from 'react-router-dom'
-import { supabase } from '../../../lib/supabase'
+import { Link, useLocation } from 'react-router-dom'
+import UnregisteredUser from './UnregisteredUser'
+import { useLogin } from '../../../hooks/useLogin'
+import Spinner from '../../Ux-Ui/Spinner'
+import RegisterSucces from './RegisterSucces'
 
 
 
 
 const Login = () => {
-      const navigate = useNavigate()
-      const saveUser = useAuthStore((state) => state.saveUser)
+
+      const location = useLocation();
+      // Capturamos el mensaje que viene de la navegación
+      const successMessage = location.state?.successMessage;
+
+      const { handleLogin, loginError, isLoading } = useLogin();
 
 
       const { register, handleSubmit, formState: { errors } } = useForm<ProfileFormData>({
@@ -20,22 +26,7 @@ const Login = () => {
       })
 
 
-      const handleLogin = async (data: ProfileFormData) => {
-            const { data: session, error } = await supabase.auth.signInWithPassword({
-                  email: `${data.user}@gmail.com`,
-                  password: data.userId,
-            });
 
-            if (error) {
-                  // Si hay error (usuario no existe o contraseña mal), avisamos
-                  alert("Error al entrar: " + error.message);
-                  console.log(session)
-            } else {
-                  // Si todo ok, guardamos la sesión y al mapa
-                  saveUser(data);
-                  navigate('/map');
-            }
-      }
 
 
 
@@ -50,29 +41,45 @@ const Login = () => {
                         <p className=" w-72 text-center text-xs ">Inicia sesión para informar y hacer un seguimiento de los Incidentes medioambientales en tus rutas.</p>
                   </section>
                   <section className=" p-2.5 text-xs rounded-xl bg-login ">
-                        <form onSubmit={handleSubmit(handleLogin)} className=' flex flex-col items-center gap-6 '>
-                              <div className=" flex flex-col w-full gap-1.5 ">
-                                    <label htmlFor="user" className='' >Usuario</label>
-                                    <div className=" flex items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
-                                          <UserRound size={20} color="#369869" />
-                                          <input type="text" id="user" className=" focus:outline-0 "
-                                                {...register('user')} />
+
+                        <form onSubmit={handleSubmit(handleLogin)} className=' relative flex flex-col items-center py-6 '>
+
+                              <section className=" self-start flex absolute -top-0.5 ">
+                                    <h2 className=" px-2.5 py-1 border-2  border-x-formLogin border-t-formLogin border-b-login  ">Login</h2>
+                                    <h2 className=" px-2.5 py-1  border-2 border-transparent  ">Registrate</h2>
+                              </section>
+                              <section className=" flex flex-col gap-6 p-4 mb-6 border-2 border-formLogin  rounded-br-lg rounded-bl-lg ">
+
+                                    <div className=" flex flex-col w-full gap-1.5 ">
+                                          <label htmlFor="user" className='' >Usuario</label>
+                                          <div className=" flex items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
+                                                <UserRound size={20} color="#369869" />
+                                                <input type="text" id="user" className=" focus:outline-0 "
+                                                      {...register('user')} />
+                                          </div>
+                                          {
+                                                errors.user?.message && <p className=""> {errors.user.message} </p>
+                                          }
                                     </div>
-                                    {
-                                          errors.user?.message && <p className=""> {errors.user.message} </p>
-                                    }
-                              </div>
-                              <div className=" flex flex-col w-full gap-1.5 ">
-                                    <label htmlFor="userId" className='' >Contraseña</label>
-                                    <div className=" flex items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
-                                          <KeyRound size={18} color="#369869" />
-                                          <input type="password" id="userId" className=" focus:outline-0 "
-                                                {...register('userId')} />
+                                    <div className=" flex flex-col w-full gap-1.5 ">
+                                          <label htmlFor="userId" className='' >Contraseña</label>
+                                          <div className=" flex items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
+                                                <KeyRound size={18} color="#369869" />
+                                                <input type="password" id="userId" className=" focus:outline-0 "
+                                                      {...register('userId')} />
+                                          </div>
+                                          {
+                                                errors.userId?.message && <p className=""> {errors.userId.message} </p>
+                                          }
                                     </div>
-                                    {
-                                          errors.userId?.message && <p className=""> {errors.userId.message} </p>
-                                    }
-                              </div>
+                              </section>
+                              {
+                                    isLoading ? <Spinner /> : loginError && <UnregisteredUser />
+                              }
+                              {
+                                    successMessage && <RegisterSucces />
+                              }
+
                               <input type="submit" value="Ingresar" className=' w-min py-1.5 px-3 border border-green-800 rounded-lg ' />
                         </form>
                         <div className="mt-4 text-center">
