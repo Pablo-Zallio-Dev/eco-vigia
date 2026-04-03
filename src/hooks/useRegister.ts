@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUserListStore } from '../store/useUserListStore';
-import type { ProfileFormData } from '../schemas/profileValidation';
+      import type { RegisterFormData } from '../schemas/schemaRegister';
 
 export const useRegister = () => {
       const navigate = useNavigate();
@@ -10,7 +10,7 @@ export const useRegister = () => {
       const [registerError, setRegisterError] = useState<string | null>(null);
       const [isLoading, setIsLoading] = useState(false);
 
-      const handleRegistration = async (data: ProfileFormData) => {
+      const handleRegistration = async (data: RegisterFormData) => {
             setIsLoading(true);
             
             try {
@@ -20,7 +20,7 @@ export const useRegister = () => {
 
                   if (isSuccess) {
                         // Si sale bien, vamos al loginse
-                        navigate('/', { state: { successMessage: '¡Registro completado con éxito!', username: data.user } });
+                        navigate('/', { state: { successMessage: '¡Registro completado con éxito!', username: data.name } });
                         
                   } else {
                         // Si el Store devuelve false (ej: usuario duplicado)

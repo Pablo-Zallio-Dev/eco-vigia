@@ -42,9 +42,9 @@
       --text-xxs: 0.65rem
 }
 
-html {
+/* html {
       overflow: hidden;
-}
+} */
 
 body {
       font-family: var(--font-inter);
@@ -56,4 +56,20 @@ body {
 
 .map__table {
       @apply absolute top-0 right-0 z-500 flex flex-col items-center gap-2 p-1 m-2 rounded-md border border-amber-800 bg-white text-xxs
+}
+
+.tab__login--active {
+      @apply px-2.5 py-1 border-2  border-x-formLogin border-t-formLogin border-b-login rounded-t-lg 
+}
+
+.tab__login--disabled {
+     @apply px-2.5 py-1  border-2  border-transparent
+}
+
+.tab__login {
+      @apply text-xs sm:text-sm
+}
+
+.tag__label {
+      @apply text-xs sm:text-sm
 }

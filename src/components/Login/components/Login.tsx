@@ -1,4 +1,4 @@
-import { KeyRound, UserRound } from 'lucide-react'
+import { Eye, EyeOff, KeyRound, UserRound } from 'lucide-react'
 import logo from '../../../assets/images/logo.webp'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,6 +8,7 @@ import UnregisteredUser from './UnregisteredUser'
 import { useLogin } from '../../../hooks/useLogin'
 import Spinner from '../../Ux-Ui/Spinner'
 import RegisterSucces from './RegisterSucces'
+import { useState } from 'react'
 
 
 
@@ -20,6 +21,12 @@ const Login = () => {
 
       const { handleLogin, loginError, isLoading } = useLogin();
 
+      const [viewPassword, setViewPassword] = useState<boolean>(false)
+
+      const setPassword = () => {
+            setViewPassword(!viewPassword)
+      }
+
 
       const { register, handleSubmit, formState: { errors } } = useForm<ProfileFormData>({
             resolver: zodResolver(profileValidation)
@@ -31,27 +38,32 @@ const Login = () => {
 
 
       return (
-            <section className=" flex flex-col gap-6 justify-center items-center w-full h-dvh bg-formLogin text-light ">
+            <section className=" flex flex-col gap-6 justify-center items-center w-full h-screen md:h-dvh bg-formLogin text-light ">
                   <section className=" flex flex-col items-center gap-4 ">
-                        <img src={logo} alt="" className=" w-48 " />
-                        <div className="">
-                              <p className="">Bienvenido a...</p>
-                              <h1 className=" text-3xl font-black ">EcoVigia</h1>
+                        <img src={logo} alt="" className=" w-24 sm:w-36 " />
+                        <div className=" text-center ">
+                              <p className=" text-sm ">Bienvenido a...</p>
+                              <h1 className=" text-xl font-black ">EcoVigia</h1>
                         </div>
-                        <p className=" w-72 text-center text-xs ">Inicia sesión para informar y hacer un seguimiento de los Incidentes medioambientales en tus rutas.</p>
+                        <p className="  w-76 sm:py-8 sm:w-140  lg:w-140 text-center text-xs sm:text-xl ">Inicia sesión para informar y hacer un seguimiento de los Incidentes medioambientales en tus rutas.</p>
                   </section>
                   <section className=" p-2.5 text-xs rounded-xl bg-login ">
-
+                        <div className="mb-8 text-center">
+                              <p className="text-gray-400">¿No tienes una cuenta?</p>
+                              <Link to="/register" className="text-[#369869] font-bold hover:underline">
+                                    Regístrate aquí
+                              </Link>
+                        </div>
                         <form onSubmit={handleSubmit(handleLogin)} className=' relative flex flex-col items-center py-6 '>
 
-                              <section className=" self-start flex absolute -top-0.5 ">
-                                    <h2 className=" px-2.5 py-1 border-2  border-x-formLogin border-t-formLogin border-b-login  ">Login</h2>
-                                    <h2 className=" px-2.5 py-1  border-2 border-transparent  ">Registrate</h2>
+                              <section className=" flex absolute -top-0.5 sm:-top-1.5 ">
+                                    <h2 className="  tab__login tab__login--active ">Login</h2>
+                                    <h2 className="  tab__login tab__login--disabled  ">Registrate</h2>
                               </section>
-                              <section className=" flex flex-col gap-6 p-4 mb-6 border-2 border-formLogin  rounded-br-lg rounded-bl-lg ">
+                              <section className=" flex flex-col gap-6 p-4 mb-6 border-2 border-formLogin  rounded-br-lg rounded-lg ">
 
                                     <div className=" flex flex-col w-full gap-1.5 ">
-                                          <label htmlFor="user" className='' >Usuario</label>
+                                          <label htmlFor="user" className=' tag__label ' >Usuario</label>
                                           <div className=" flex items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
                                                 <UserRound size={20} color="#369869" />
                                                 <input type="text" id="user" className=" focus:outline-0 "
@@ -62,11 +74,20 @@ const Login = () => {
                                           }
                                     </div>
                                     <div className=" flex flex-col w-full gap-1.5 ">
-                                          <label htmlFor="userId" className='' >Contraseña</label>
-                                          <div className=" flex items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
+                                          <label htmlFor="userId" className=' tag__label ' >Contraseña</label>
+                                          <div className=" flex justify-between items-center p-2 gap-1.5 bg-formLogin rounded-md transition-all duration-150 focus-within:border-[#369869] focus-within:ring-1 focus-within:ring-[#369869]  ">
                                                 <KeyRound size={18} color="#369869" />
-                                                <input type="password" id="userId" className=" focus:outline-0 "
+                                                <input type={ viewPassword ? `text` : `password` } id="userId" className=" w-full focus:outline-0 "
                                                       {...register('userId')} />
+
+                                                      <section className=" self-end">
+                                                      {
+                                                            viewPassword ? <EyeOff size={18} color="#369869" onClick={setPassword} /> : <Eye size={18} color="#369869" onClick={setPassword} />
+                                                      }
+
+                                                      </section>
+
+                                          
                                           </div>
                                           {
                                                 errors.userId?.message && <p className=""> {errors.userId.message} </p>
@@ -82,12 +103,7 @@ const Login = () => {
 
                               <input type="submit" value="Ingresar" className=' w-min py-1.5 px-3 border border-green-800 rounded-lg ' />
                         </form>
-                        <div className="mt-4 text-center">
-                              <p className="text-gray-400">¿No tienes una cuenta?</p>
-                              <Link to="/register" className="text-[#369869] font-bold hover:underline">
-                                    Regístrate aquí
-                              </Link>
-                        </div>
+                        
                   </section>
             </section>
       )
