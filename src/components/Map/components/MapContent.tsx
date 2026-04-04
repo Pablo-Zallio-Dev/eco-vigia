@@ -8,66 +8,91 @@ import UserMarkers from "./UserMarkers";
 import { useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
 import DeleteconfirmModal from "../../IncidentForm/components/DeleteconfirmModal";
+import { useLocationWatcher } from "../../../hooks/useLocation";
+import LoadLocation from "./LoadLocation";
+import MapStatusTable from "./MapStatusTable";
 
 // Componente controlador interno
 const MapInit = () => {
-  useUserLocation();
-  return null;
+      useUserLocation();
+      return null;
 };
 
 const MapContent = () => {
-  const incidents = useIncidentStore((state) => state.incidents);
-  const userLocation = useIncidentStore((state) => state.userLocation)
+      const incidents = useIncidentStore((state) => state.incidents);
+      //const userLocation = useIncidentStore((state) => state.userLocation)
 
-  // Dentro de tu componente de Mapa
-useEffect(() => {
-  const cargarDeSupabase = async () => {
-    const { data } = await supabase.from('Incidentes').select('*');
-    if (data) {
-       // Usamos el setIncidents de tu store para meter los puntos de la nube
-       useIncidentStore.getState().setIncidents(data); 
-    }
-  };
-  cargarDeSupabase();
-}, []);
+      const { coords, error } = useLocationWatcher();
+
+      useEffect(() => {
+            const cargarDeSupabase = async () => {
+                  const { data } = await supabase.from('Incidentes').select('*');
+                  if (data) {
+                        // Usamos el setIncidents de tu store para meter los puntos de la nube
+                        useIncidentStore.getState().setIncidents(data);
+                  }
+            };
+            cargarDeSupabase();
+      }, []);
+      if (error) {
+            return (
+                  <div className="flex flex-col items-center justify-center h-screen bg-formLogin text-white p-6">
+                        <h2 className="text-xl font-bold mb-4 text-red-400">¡Ubicación Necesaria!</h2>
+                        <p className="text-center text-sm mb-6">
+                              EcoVigia necesita tu ubicación en tiempo real para mostrarte los incidentes cercanos y permitirte reportar.
+                        </p>
+                        <button
+                              onClick={() => window.location.reload()}
+                              className="bg-[#369869] px-4 py-2 rounded-lg font-bold"
+                        >
+                              Reintentar / Activar GPS
+                        </button>
+                  </div>
+            );
+      }
+
+      if (!coords) return <LoadLocation />
+
+      // Dentro de tu componente de Mapa
 
 
 
-  console.log("ubi local" + userLocation?.[0])
 
-  return (
-    <>
-      <MapContainer
-        className=" w-full h-dvh bg-amber-500 relative "
-        center={[39.1847558, -0.6223629]}
-        zoom={8}
-        scrollWheelZoom={true}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <MapInit />
-        <UserMarkers />
-        <BtnRecenter />
-        <BtnAdd /> {/* ESta aquidentro */}
-        {incidents.map((incident) => (
-          <Markers
-            key={incident.id}
-            id={incident.id}
-            user_id={incident.user_id}
-            lat={incident.lat}
-            lng={incident.lng}
-            title={incident.title}
-            status={incident.status}
-            description={incident.description}
-            confirmations={incident.confirmations}
-          />
-        ))}
-      </MapContainer>
-      <DeleteconfirmModal />
-    </>
-  );
+      return (
+            <>
+                  <MapContainer
+                        className=" w-full h-dvh bg-amber-500 relative "
+                        center={[39.1847558, -0.6223629]}
+                        zoom={8}
+                        scrollWheelZoom={true}
+                  >
+                        <TileLayer
+                              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        <MapInit />
+                        <MapStatusTable />
+
+                        <UserMarkers />
+                        <BtnRecenter />
+                        <BtnAdd /> {/* ESta aquidentro */}
+                        {incidents.map((incident) => (
+                              <Markers
+                                    key={incident.id}
+                                    id={incident.id}
+                                    user_id={incident.user_id}
+                                    lat={incident.lat}
+                                    lng={incident.lng}
+                                    title={incident.title}
+                                    status={incident.status}
+                                    description={incident.description}
+                                    confirmations={incident.confirmations}
+                              />
+                        ))}
+                  </MapContainer>
+                  <DeleteconfirmModal />
+            </>
+      );
 };
 
 export default MapContent;

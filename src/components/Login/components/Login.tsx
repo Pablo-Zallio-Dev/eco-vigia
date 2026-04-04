@@ -58,7 +58,6 @@ const Login = () => {
 
                               <section className=" flex absolute -top-0.5 sm:-top-1.5 ">
                                     <h2 className="  tab__login tab__login--active ">Login</h2>
-                                    <h2 className="  tab__login tab__login--disabled  ">Registrate</h2>
                               </section>
                               <section className=" flex flex-col gap-6 p-4 mb-6 border-2 border-formLogin  rounded-br-lg rounded-lg ">
 

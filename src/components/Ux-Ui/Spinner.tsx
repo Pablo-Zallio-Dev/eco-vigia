@@ -6,7 +6,7 @@ import spinner from '../../assets/images/Spinner.gif'
 const Spinner = () => {
   return (
     <>
-      <img src={spinner} alt="" />
+      <img src={spinner} alt="" className=' w-36 ' />
     
     </>
   )

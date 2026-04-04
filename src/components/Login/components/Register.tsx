@@ -43,8 +43,7 @@ const Register = () => {
 
 
                               <section className=" flex absolute -top-0.5 sm:-top-1.5 ">
-                                    <h2 className=" tab__login tab__login--disabled ">Login</h2>
-                                    <h2 className="  tab__login tab__login--active   ">Registrate</h2>
+                                    <h2 className=" tab__login tab__login--active ">Registrate</h2>
                               </section>
                               <section className=" flex flex-col gap-4 p-4 mb-6 border-2 border-formLogin rounded-lg rounded-bl-lg ">
 
